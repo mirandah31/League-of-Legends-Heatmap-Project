@@ -1,0 +1,6 @@
+# Environment variables and API keys
+.env
+.env.*
+
+# Dependencies
+node_modules

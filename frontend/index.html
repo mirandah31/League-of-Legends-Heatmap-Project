@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoL Map Roam</title>
+    <link rel="stylesheet" href="style.css">
+    <style type="text/css">
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>League of Legends Coordinates Heatmap</h1>
+    </div>
+    <form id="player-info">
+        <input id="summonerName" input type="text" placeholder="summonerName#tag">
+        <button type="submit" id="generateImg">Generate Heatmap</button>
+    </form>
+    <div>
+        <p id="errorMessage"></p>
+        <p id="loader"></p>
+        
+    </div>
+    <br></br>
+
+    <canvas></canvas>
+    <script type="module" src="main.js"></script>
+    <script type="module" src="api.js"></script>   
+</body>
+</html>

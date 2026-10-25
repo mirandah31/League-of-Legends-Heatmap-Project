@@ -1,18 +1,39 @@
+const MATCH_COUNT = 40;
+const BASE_URL = "https://americas.api.riotgames.com";
 const express = require("express");
 const cors = require("cors");
-const MATCH_COUNT = 30;
-require("dotenv").config();
+const rateLimit = require("express-rate-limit");
 
+require("dotenv").config();
 const app = express();
 
-const BASE_URL = "https://americas.api.riotgames.com";
+//revisit this - i might not need it?
+let limiter1 = rateLimit({
+  max: 100,
+  windowMs: 2 * 60 * 1000,
+  message:
+    "We have received too many requests from this IP. Please try again after 2 minutes.",
+});
 
+let limiter2 = rateLimit({
+  max: 20,
+  windowMs: 1000,
+  message:
+    "We have received too many requests from this IP. Please try again after 2 minutes.",
+});
+
+app.use("/", limiter1);
+app.use("/", limiter2);
 app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Server works!");
 });
+
+const sleep = async (seconds) => {
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+};
 
 //get player puuid
 app.post("/summoners", async (req, res) => {
@@ -35,6 +56,7 @@ app.get("/matches/:puuid", async (req, res) => {
 
 app.get("/match/timeline/:matchId", async (req, res) => {
   const match = req.params.matchId;
+  await sleep(1);
   const response = await fetch(
     `${BASE_URL}/lol/match/v5/matches/${match}/timeline?api_key=${process.env.RIOT_API_KEY}`,
   );
@@ -44,6 +66,7 @@ app.get("/match/timeline/:matchId", async (req, res) => {
 
 app.get("/match/details/:matchId", async (req, res) => {
   const match = req.params.matchId;
+  await sleep(1);
   const response = await fetch(
     `${BASE_URL}/lol/match/v5/matches/${match}?api_key=${process.env.RIOT_API_KEY}`,
   );

@@ -15,8 +15,6 @@ canvas.style.height = "600px";
 
 let c = canvas.getContext("2d");
 
-//const matchPos = await getPlayerPos();
-
 const heatmapKey = heatmapId();
 
 const img = new Image();
@@ -34,29 +32,6 @@ const displayPos = async (summonerName, tagLine) => {
 
     let matchPos = await getPlayerPos(summonerName, tagLine);
     let m = 0.047;
-
-    const colors = [
-      "cornflowerblue",
-      "mediumseagreen",
-      "tomato",
-      "goldenrod",
-      "mediumpurple",
-      "deeppink",
-      "darkturquoise",
-      "orangered",
-      "limegreen",
-      "slateblue",
-      "hotpink",
-      "dodgerblue",
-      "springgreen",
-      "crimson",
-      "darkorange",
-      "aqua",
-      "yellowgreen",
-      "violet",
-      "royalblue",
-      "salmon",
-    ];
 
     let newPosList = [];
 
